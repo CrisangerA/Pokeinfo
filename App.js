@@ -4,10 +4,12 @@ import { createStackNavigator, createDrawerNavigator, createAppContainer } from 
 // Screens
 import Home from './src/Home';
 import ListPokemon from './src/components/pokemons/ListPokemon'
+import ModalPokemon from './src/components/pokemons/ModalPokemon';
 
 const pokemonStack = createStackNavigator(
   {
-    Pokemon: ListPokemon
+    Pokemon: ListPokemon,
+    Modal: ModalPokemon
   }
 )
 

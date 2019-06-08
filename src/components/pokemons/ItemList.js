@@ -1,13 +1,33 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
+
+// Constants
 import { height, width } from '../../constants/Layout'
+
+// Screens
 import ImageList from './ImageList';
+import ModalPokemon from './ModalPokemon';
 
 export default class ItemList extends Component {
+  constructor(){
+    super();
+    this.state = {
+      modalVisible: false
+    }
+    this.setModalVisible = this.setModalVisible.bind(this);
+  }
+
+  setModalVisible (visible) {
+    this.setState({ modalVisible: visible })
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <ImageList url={this.props.item.url} />
+        <ModalPokemon modalVisible={this.state.modalVisible} />
+        <TouchableHighlight onPress={this.setModalVisible(true)}>
+          <ImageList url={this.props.item.url} />
+        </TouchableHighlight>
         <Text style={styles.text}> {this.props.item.name} </Text>
       </View>
     )

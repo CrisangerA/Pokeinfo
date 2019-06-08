@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, View, FlatList, ActivityIndicator } from 'react-native';
+import { Text, StyleSheet, View, FlatList, ActivityIndicator, Button } from 'react-native';
 import ItemList from './ItemList';
 
 export default class ListPokemon extends Component {
@@ -9,8 +9,10 @@ export default class ListPokemon extends Component {
       url: 'https://pokeapi.co/api/v2/pokemon',
       loading: false,
       data: [],
-      error: ''
+      error: '',
+      visible: false
     }
+    this.setModalVisible = this.setModalVisible.bind(this);
   }
 
   getPokemons () {
@@ -33,6 +35,10 @@ export default class ListPokemon extends Component {
     this.getPokemons();
   }
 
+  setModalVisible (visible) {
+    this.setState({visible: visible})
+  }
+
   render() {
 
     if (this.state.loading) {
@@ -44,6 +50,7 @@ export default class ListPokemon extends Component {
         <View style={styles.container}>
           <Text>Cosa</Text>
           <Text> List pokemon ...</Text>
+          <Button title="Modal" onPress={() => this.props.navigation.navigate('Modal')} />
           <FlatList 
             numColumns={3}
             centerContent
