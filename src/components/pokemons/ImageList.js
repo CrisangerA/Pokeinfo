@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Image, ActivityIndicator } from 'react-native';
+import { Loading } from '../Loading';
 import { width, height } from '../../constants/Layout';
 
 export default class ImageList extends Component {
@@ -35,11 +36,8 @@ export default class ImageList extends Component {
   render() {
 
     if (this.state.loading) {
-      return(
-        <ActivityIndicator size="small" />
-      )
+      return( <Loading size={'small'} /> )
     }
-
     return (
       <Image style={styles.imgFluid} source={{uri: this.state.data.front_default}} />
     )
@@ -48,10 +46,7 @@ export default class ImageList extends Component {
 
 const styles = StyleSheet.create({
   imgFluid: {
-    borderRadius: 50,
-    padding: 15,
     width: width * 0.2,
-    height: height * 0.113,
-    backgroundColor: 'black',
+    height: height * 0.113
   }
 })

@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, View, FlatList, ActivityIndicator, Button } from 'react-native';
+import { StyleSheet, View, FlatList, ActivityIndicator } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+// Component
 import ItemList from './ItemList';
+import { Loading } from '../Loading'
 
 export default class ListPokemon extends Component {
-  constructor(){
+  constructor() {
     super();
     this.state = {
       url: 'https://pokeapi.co/api/v2/pokemon',
       loading: false,
       data: [],
-      error: '',
-      visible: false
-    }
-    this.setModalVisible = this.setModalVisible.bind(this);
+      error: ''  
+    }    
   }
 
-  getPokemons () {
+  getPokemons() {
     this.setState({ loading: true });
     fetch(this.state.url)
       .then(res => res.json())
@@ -27,47 +28,37 @@ export default class ListPokemon extends Component {
       })
       .catch(err => {
         console.error(err);
-        this.setState({error: 'Do no conection network'});
+        this.setState({ error: 'Do no conection network' });
       });
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.getPokemons();
   }
 
-  setModalVisible (visible) {
-    this.setState({visible: visible})
-  }
-
   render() {
-
     if (this.state.loading) {
-      return <ActivityIndicator size="large" />
+      return( <Loading size={'large'} /> );
     }
-
     return (
-      //<LinearGradient colors={['#50c784', '#91da71']} >
-        <View style={styles.container}>
-          <Text>Cosa</Text>
-          <Text> List pokemon ...</Text>
-          <Button title="Modal" onPress={() => this.props.navigation.navigate('Modal')} />
-          <FlatList 
-            numColumns={3}
-            centerContent
-            data={this.state.data} 
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({item}) => <ItemList item={item} />}
-            ItemSeparatorComponent={() => <View style={{height: 5}} />}
-          />
-        </View>
-      //</LinearGradient>
-    )
+      <LinearGradient style={styles.container} colors={['#50c784', '#91da71']} >
+        <FlatList
+          numColumns={3}
+          centerContent
+          data={this.state.data}
+          renderItem={({ item }) => <ItemList item={item} /> }
+          keyExtractor={(item, index) => index.toString() }          
+          ItemSeparatorComponent={() => <View style={{ height: 5 }} />}
+        />        
+      </LinearGradient>
+    );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 10
+    paddingVertical: 20
+    //paddingHorizontal: 10
   }
 });

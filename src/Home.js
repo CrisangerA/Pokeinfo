@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { width, height } from './constants/Layout'
+import LinearGradient from 'react-native-linear-gradient'
+import { height, Colors } from './constants/Layout'
 
 export default class Home extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.text}> Home component prueba </Text>
-      </View>
+      <LinearGradient style={styles.container} colors={['#50c784', '#91da71']}>
+        <View style={styles.container}>
+          <Text>Welcome to Pokeinfo</Text>
+          <Text style={styles.text}> Home component prueba </Text>
+        </View>
+      </LinearGradient>
     )
   }
 }
@@ -18,6 +22,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  title: {
+    fontSize: height * 0.05,
+    color: Colors.Black
   },
   text: {
     fontSize: height * 0.03

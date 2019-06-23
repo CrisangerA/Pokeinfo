@@ -1,34 +1,32 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
-
-// Constants
-import { height, width } from '../../constants/Layout'
-
+import { height, width, Colors } from '../../constants/Layout';
 // Screens
 import ImageList from './ImageList';
-import ModalPokemon from './ModalPokemon';
 
 export default class ItemList extends Component {
   constructor(){
     super();
     this.state = {
-      modalVisible: false
-    }
-    this.setModalVisible = this.setModalVisible.bind(this);
+      url: '',
+      name: ''
+    }    
   }
-
-  setModalVisible (visible) {
-    this.setState({ modalVisible: visible })
+  // Cambiar para que reciva los datos directamente desde las props
+  componentWillMount() {
+    this.setState({
+      url: this.props.item.url,
+      name: this.props.item.name
+    });
   }
 
   render() {
     return (
-      <View style={styles.container}>
-        <ModalPokemon modalVisible={this.state.modalVisible} />
-        <TouchableHighlight onPress={this.setModalVisible(true)}>
-          <ImageList url={this.props.item.url} />
-        </TouchableHighlight>
-        <Text style={styles.text}> {this.props.item.name} </Text>
+      <View style={styles.container}>    
+        <TouchableHighlight>
+          <ImageList url={this.state.url} />
+        </TouchableHighlight>        
+        <Text style={styles.text}> {this.state.name} </Text>      
       </View>
     )
   }
@@ -36,11 +34,12 @@ export default class ItemList extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    width: width * 0.33125
+    width: width * 0.33125,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   text: {
-    fontSize: height * 0.03
+    fontSize: height * 0.03,
+    color: Colors.Black
   }
-})
-
-console.log('Height: ', height, ' Width: ', width);
+});
